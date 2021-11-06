@@ -26,22 +26,6 @@ function checksExistsUserAccount(request, response, next) {
   return next();
 }
 
-/*
-
-A rota deve receber name, e username dentro do corpo da requisição. 
-Ao cadastrar um novo usuário, ele deve ser armazenado dentro de um objeto no seguinte formato:  
-
-{ 
-  id: 'uuid', // precisa ser um uuid
-  name: 'Danilo Vieira', 
-  username: 'danilo', 
-  todos: []
-}
-
-
-*/
-
-
 app.post('/users', (request, response) => {
   const { name, username } = request.body;
 
