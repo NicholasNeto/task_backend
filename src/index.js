@@ -76,7 +76,7 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
   const task = user.todos.find(task => task.id === id)
 
   task.title = title,
-  task.deadline = deadline
+    task.deadline = deadline
   return response.status(200).json(task)
 });
 
@@ -89,7 +89,16 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
 });
 
 app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
-  // Complete aqui
+  const { user } = request
+  const { id } = request.params
+
+  const index = user.todos.findIndex(it => it.id === id);
+  let taskRemoved
+  if (index > -1) {
+    taskRemoved = user.todos.splice(index, 1);
+  }
+
+  return response.status(204).json(taskRemoved)
 });
 
 module.exports = app;
