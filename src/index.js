@@ -75,14 +75,14 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
 
   const task = user.todos.find(task => task.id === id)
 
-  if(!task){
+  if (!task) {
     return response.status(404).json({
       error: 'Task not found'
-    })  
+    })
   }
 
   task.title = title,
-  task.deadline = deadline
+    task.deadline = deadline
   return response.status(200).json(task)
 });
 
@@ -90,6 +90,13 @@ app.patch('/todos/:id/done', checksExistsUserAccount, (request, response) => {
   const { user } = request
   const { id } = request.params
   const task = user.todos.find(task => task.id === id)
+
+  if (!task) {
+    return response.status(404).json({
+      error: 'Task not found'
+    })
+  }
+
   task.done = true
   return response.status(200).json(task)
 });
