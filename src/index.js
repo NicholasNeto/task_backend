@@ -65,7 +65,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
   }
 
   user.todos.push(task)
-  return response.status(200).json(task)
+  return response.status(201).json(task)
 });
 
 app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
@@ -75,8 +75,14 @@ app.put('/todos/:id', checksExistsUserAccount, (request, response) => {
 
   const task = user.todos.find(task => task.id === id)
 
+  if(!task){
+    return response.status(404).json({
+      error: 'Task not found'
+    })  
+  }
+
   task.title = title,
-    task.deadline = deadline
+  task.deadline = deadline
   return response.status(200).json(task)
 });
 
