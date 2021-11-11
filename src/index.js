@@ -109,7 +109,13 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
   let taskRemoved
   if (index > -1) {
     taskRemoved = user.todos.splice(index, 1);
+  } else {
+    return response.status(404).json({
+      error: 'Task not found'
+    })
   }
+
+
 
   return response.status(204).json(taskRemoved)
 });
